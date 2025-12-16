@@ -1,8 +1,6 @@
 # UH2025-CDS-Agent: Edge-Native Diagnostic Agents for Rare Diseases
-<img width="280" height="280" alt="image" src="https://github.com/user-attachments/assets/47d1de3e-cdcd-405c-8e1c-b02bc51afbdd" />
-**Version**: 2.1.0 (LangGraph 4-Agent Architecture with LIVE LLM Inference)
-**Status**: Alpha Release - Active Development
-**Project**: Federated "Edge-Native" Diagnostic Agents for Undiagnosed Diseases
+
+![31AE41D6-EB00-4D0F-A150-1BDF81B6F5A4_4_5005_c](https://github.com/user-attachments/assets/b7c1cd34-60ee-4131-a11e-b705e31cde6b)
 
 ---
 
