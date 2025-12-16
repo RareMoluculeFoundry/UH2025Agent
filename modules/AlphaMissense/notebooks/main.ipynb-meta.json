@@ -1,0 +1,67 @@
+{
+  "name": "AlphaMissense Pathogenicity Scoring",
+  "description": "Predict pathogenicity of missense variants using Google DeepMind's AlphaMissense model. Classifies variants as benign, pathogenic, or uncertain significance based on deep learning predictions.",
+  "runtime_image": "continuumio/anaconda3:2024.02-1",
+  "properties": {
+    "patient_id": {
+      "title": "Patient ID",
+      "description": "Identifier for the patient",
+      "type": "string",
+      "default": "PatientX",
+      "required": true
+    },
+    "genomic_data_path": {
+      "title": "Genomic Data Path",
+      "description": "Path to genomic data JSON file with variants",
+      "type": "string",
+      "required": true
+    },
+    "output_file": {
+      "title": "Output File",
+      "description": "Path for output pathogenicity scores JSON",
+      "type": "string",
+      "default": "pathogenicity_scores.json",
+      "required": true
+    },
+    "privacy_mode": {
+      "title": "Privacy Mode",
+      "description": "Enable HIPAA-compliant privacy mode",
+      "type": "boolean",
+      "default": true
+    },
+    "database_path": {
+      "title": "AlphaMissense Database Path",
+      "description": "Path to AlphaMissense hg38 database",
+      "type": "string",
+      "default": "/data/alphamissense/AlphaMissense_hg38.tsv.gz"
+    },
+    "confidence_threshold": {
+      "title": "Confidence Threshold",
+      "description": "Threshold for pathogenic classification (default: 0.5)",
+      "type": "number",
+      "default": 0.5,
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  },
+  "outputs": [
+    "pathogenicity_scores.json"
+  ],
+  "env_vars": [],
+  "dependencies": [],
+  "categories": [
+    "genomics",
+    "pathogenicity",
+    "machine-learning"
+  ],
+  "module_metadata": {
+    "version": "1.0.0-stub",
+    "author": "DEFACT Lab",
+    "license": "MIT",
+    "repository": "lab/obs/modules/AlphaMissense",
+    "federated_tiers": ["L1", "L2", "L3"],
+    "backend_support": ["cpu", "cuda", "mps"],
+    "papermill_compatible": true,
+    "elyra_compatible": true
+  }
+}

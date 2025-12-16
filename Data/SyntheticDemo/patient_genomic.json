@@ -1,0 +1,193 @@
+{
+  "patient_id": "SyntheticDemo_001",
+  "sample_id": "EC_WES_2025",
+  "sequencing_date": "2025-11-15",
+  "sequencing_method": "Whole Exome Sequencing (WES)",
+  "coverage": "180x mean coverage",
+  "reference_genome": "GRCh38",
+  "variants": [
+    {
+      "gene": "SCN1A",
+      "transcript": "NM_001165963.4",
+      "variant": "c.4933C>T",
+      "type": "nonsense",
+      "protein_change": "p.Arg1645Ter",
+      "chromosome": "2",
+      "position": "166052267",
+      "ref": "C",
+      "alt": "T",
+      "zygosity": "heterozygous",
+      "inheritance": "de_novo",
+      "allele_frequency": {
+        "gnomAD": "absent",
+        "ESP": "absent",
+        "1000G": "absent"
+      },
+      "conservation": {
+        "GERP": 5.89,
+        "PhyloP": 9.87,
+        "phastCons": 1.0
+      },
+      "functional_prediction": {
+        "CADD_phred": 42.0,
+        "REVEL": null,
+        "AlphaMissense": null,
+        "note": "Truncating variant - predictors for missense not applicable"
+      },
+      "splicing_prediction": {
+        "SpliceAI_max": 0.01,
+        "note": "No significant splicing impact predicted"
+      },
+      "clinvar": {
+        "clinical_significance": "Pathogenic",
+        "review_status": "criteria_provided_multiple_submitters_no_conflicts",
+        "stars": 2,
+        "clinvar_id": "VCV000017108",
+        "condition": "Dravet syndrome"
+      },
+      "acmg_classification": {
+        "classification": "Pathogenic",
+        "criteria": ["PVS1", "PS2", "PM2", "PP3", "PP4"],
+        "evidence_summary": "Null variant (nonsense) in a gene where loss-of-function is established mechanism of disease (PVS1). De novo in affected individual with confirmed parentage (PS2). Absent from population databases (PM2). Computational evidence supports deleterious effect (PP3). Patient phenotype highly specific for SCN1A-related disease (PP4)."
+      },
+      "parental_testing": {
+        "mother": "negative",
+        "father": "negative",
+        "confirmed_de_novo": true
+      },
+      "notes": "Truncating variant in SCN1A, well-established cause of Dravet syndrome. This specific variant has been reported in multiple affected individuals in the literature."
+    },
+    {
+      "gene": "SCN9A",
+      "transcript": "NM_002977.3",
+      "variant": "c.2215G>A",
+      "type": "missense",
+      "protein_change": "p.Val739Ile",
+      "chromosome": "2",
+      "position": "166282741",
+      "ref": "G",
+      "alt": "A",
+      "zygosity": "heterozygous",
+      "inheritance": "maternal",
+      "allele_frequency": {
+        "gnomAD": 0.0008,
+        "ESP": 0.0006,
+        "1000G": 0.0004
+      },
+      "conservation": {
+        "GERP": 2.14,
+        "PhyloP": 1.23,
+        "phastCons": 0.45
+      },
+      "functional_prediction": {
+        "CADD_phred": 18.5,
+        "REVEL": 0.32,
+        "AlphaMissense": 0.28
+      },
+      "splicing_prediction": {
+        "SpliceAI_max": 0.02
+      },
+      "clinvar": {
+        "clinical_significance": "Uncertain significance",
+        "review_status": "criteria_provided_single_submitter",
+        "stars": 1,
+        "clinvar_id": "VCV000523891",
+        "condition": "not provided"
+      },
+      "acmg_classification": {
+        "classification": "Likely Benign",
+        "criteria": ["BS1", "BP4"],
+        "evidence_summary": "Allele frequency greater than expected for disease (BS1). Computational predictors suggest benign (BP4)."
+      },
+      "notes": "SCN9A variant unlikely to contribute to phenotype. Common enough in population and computational evidence suggests benign. SCN9A primarily associated with pain disorders."
+    },
+    {
+      "gene": "GABRA1",
+      "transcript": "NM_000806.6",
+      "variant": "c.641G>A",
+      "type": "missense",
+      "protein_change": "p.Arg214His",
+      "chromosome": "5",
+      "position": "161841523",
+      "ref": "G",
+      "alt": "A",
+      "zygosity": "heterozygous",
+      "inheritance": "paternal",
+      "allele_frequency": {
+        "gnomAD": 0.00002,
+        "ESP": "absent",
+        "1000G": "absent"
+      },
+      "conservation": {
+        "GERP": 4.56,
+        "PhyloP": 7.34,
+        "phastCons": 0.98
+      },
+      "functional_prediction": {
+        "CADD_phred": 26.8,
+        "REVEL": 0.68,
+        "AlphaMissense": 0.72
+      },
+      "splicing_prediction": {
+        "SpliceAI_max": 0.03
+      },
+      "clinvar": {
+        "clinical_significance": "Uncertain significance",
+        "review_status": "criteria_provided_single_submitter",
+        "stars": 1,
+        "clinvar_id": "VCV000891234",
+        "condition": "Epileptic encephalopathy"
+      },
+      "acmg_classification": {
+        "classification": "Uncertain Significance",
+        "criteria": ["PM2", "PP3", "BS4"],
+        "evidence_summary": "Rare in population databases (PM2). Computational evidence supports deleterious effect (PP3). However, inherited from unaffected father (BS4) argues against pathogenicity."
+      },
+      "parental_testing": {
+        "father": "positive",
+        "father_phenotype": "unaffected, history of mild childhood febrile seizures"
+      },
+      "notes": "GABRA1 variant inherited from father who had childhood febrile seizures but is otherwise healthy. May represent reduced penetrance modifier or coincidental finding. Primary diagnosis is explained by SCN1A variant."
+    }
+  ],
+  "genes_of_interest": [
+    "SCN1A",
+    "SCN2A",
+    "SCN1B",
+    "SCN8A",
+    "SCN9A",
+    "GABRA1",
+    "GABRG2",
+    "PCDH19",
+    "CHD2",
+    "STXBP1"
+  ],
+  "cnv_analysis": {
+    "performed": true,
+    "method": "ExomeDepth",
+    "findings": "No pathogenic copy number variants detected in epilepsy genes"
+  },
+  "mitochondrial_analysis": {
+    "performed": false,
+    "notes": "Not indicated - phenotype consistent with channelopathy"
+  },
+  "quality_metrics": {
+    "mean_coverage": 180,
+    "percent_20x": 98.5,
+    "percent_10x": 99.2,
+    "duplicate_rate": 12.3,
+    "insert_size_mean": 180
+  },
+  "summary": {
+    "primary_finding": "SCN1A c.4933C>T (p.Arg1645Ter) heterozygous de novo truncating variant",
+    "interpretation": "Pathogenic truncating variant in SCN1A, confirming diagnosis of Dravet syndrome",
+    "secondary_findings": "GABRA1 variant of uncertain significance inherited from father with mild phenotype - possible modifier",
+    "recommendations": [
+      "Genetic counseling for recurrence risk (low given de novo status, but germline mosaicism possible)",
+      "Avoid sodium channel blocker antiepileptic drugs",
+      "Consider fenfluramine as additional treatment option",
+      "Refer to Dravet Syndrome Foundation for family support resources",
+      "SUDEP risk counseling and monitoring"
+    ]
+  }
+}

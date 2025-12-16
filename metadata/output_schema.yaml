@@ -1,0 +1,345 @@
+# Output Metadata Schema for UH2025Agent Pipeline
+# Version: 1.0.0
+# Purpose: FAIR-compliant metadata standard for pipeline outputs
+# Based on: DEFACT standards, DeLab dataset provenance patterns
+
+---
+
+# Schema Definition
+schema_version: "1.0.0"
+last_updated: "2025-11-03"
+
+# Metadata Template for Pipeline Outputs
+output_metadata_template:
+
+  # ====================
+  # IDENTITY & FORMAT
+  # ====================
+  identity:
+    output_id:
+      description: "Unique identifier for this output (DID format)"
+      format: "did:defact:output:{stage}:{run_id}:{uuid}"
+      example: "did:defact:output:differential:20251103-123456:abc123"
+      required: true
+
+    output_type:
+      description: "Type of output (matches stage name)"
+      values: ["regulatory_analysis", "pathogenicity_scores", "differential_diagnosis", "tool_calls", "clinical_report"]
+      required: true
+
+    format:
+      description: "MIME type of output file"
+      values: ["application/json", "text/markdown", "text/plain"]
+      required: true
+
+    filename:
+      description: "Name of the primary output file"
+      example: "differential_diagnosis.json"
+      required: true
+
+  # ====================
+  # PROVENANCE TRACKING
+  # ====================
+  provenance:
+    generated_by:
+      module:
+        description: "Module that generated this output"
+        example: "RareLLM"
+        required: true
+
+      notebook:
+        description: "Specific notebook executed"
+        example: "differential_diagnosis.ipynb"
+        required: true
+
+      version:
+        description: "Module version"
+        format: "semantic versioning (major.minor.patch)"
+        example: "1.0.0"
+        required: true
+
+      git_commit:
+        description: "Git commit hash (if tracked)"
+        example: "abc123def456"
+        required: false
+
+    execution:
+      execution_id:
+        description: "Unique identifier for this pipeline run"
+        format: "run_{timestamp}"
+        example: "run_20251103_123456"
+        required: true
+
+      timestamp:
+        description: "ISO 8601 timestamp of execution start"
+        example: "2025-11-03T12:34:56Z"
+        required: true
+
+      duration_seconds:
+        description: "Total execution time in seconds"
+        type: "float"
+        example: 120.5
+        required: true
+
+      platform:
+        description: "Execution platform"
+        values: ["local", "ray", "kubeflow", "elyra"]
+        required: true
+
+  # ====================
+  # COMPUTATION ENVIRONMENT
+  # ====================
+  compute_environment:
+    backend:
+      description: "Compute backend used"
+      values: ["metal", "cuda", "rocm", "cpu"]
+      required: true
+
+    model:
+      description: "LLM model used (for AI stages)"
+      example: "Qwen2.5-32B-Instruct-Q4_K_M"
+      required: false
+
+    lora_adapter:
+      description: "LoRA adapter loaded (if any)"
+      example: "diagnostic_analysis"
+      required: false
+
+    system_info:
+      platform:
+        description: "Operating system"
+        example: "Darwin 25.1.0"
+        required: true
+
+      python_version:
+        description: "Python version"
+        example: "3.11.5"
+        required: true
+
+      memory_gb:
+        description: "Available RAM in GB"
+        type: "integer"
+        example: 64
+        required: false
+
+  # ====================
+  # INPUT DEPENDENCIES
+  # ====================
+  inputs:
+    description: "All input files used to generate this output"
+    format: "dict[input_name: relative_path]"
+    example:
+      clinical_data: "Data/PatientX/patientX_Clinical.md"
+      genomic_data: "Data/PatientX/patientX_Genomic.json"
+      regulatory_analysis: "outputs/run_20251103_123456/01_regulatory/regulatory_analysis.json"
+    required: true
+
+  # ====================
+  # PARAMETERS
+  # ====================
+  parameters:
+    description: "All tunable parameters used"
+    format: "dict[parameter_name: value]"
+    example:
+      temperature: 0.3
+      max_diagnoses: 5
+      lora_adapter: "diagnostic_analysis"
+      privacy_mode: true
+    required: true
+
+  # ====================
+  # QUALITY METRICS
+  # ====================
+  quality_metrics:
+    description: "Execution and output quality metrics"
+
+    inference_time_seconds:
+      description: "LLM inference time (for AI stages)"
+      type: "float"
+      required: false
+
+    output_size_bytes:
+      description: "Size of output file in bytes"
+      type: "integer"
+      required: true
+
+    validation_status:
+      description: "Whether output passed validation"
+      type: "boolean"
+      required: true
+
+    validation_errors:
+      description: "List of validation errors (if any)"
+      type: "list"
+      required: false
+
+    custom_metrics:
+      description: "Stage-specific quality metrics"
+      format: "dict"
+      example:
+        num_diagnoses: 5
+        top_confidence: 0.92
+        avg_confidence: 0.78
+      required: false
+
+  # ====================
+  # VERIFICATION
+  # ====================
+  verification:
+    checksum_sha256:
+      description: "SHA-256 hash of output file for integrity verification"
+      example: "a3b2c1d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6"
+      required: true
+
+    checksum_algorithm:
+      description: "Algorithm used for checksum"
+      value: "SHA-256"
+      required: true
+
+    verification_timestamp:
+      description: "When checksum was computed"
+      example: "2025-11-03T12:36:00Z"
+      required: true
+
+  # ====================
+  # LICENSING & ATTRIBUTION
+  # ====================
+  licensing:
+    license:
+      description: "License for this output"
+      example: "CC-BY-4.0"
+      required: true
+
+    attribution:
+      description: "Attribution string"
+      example: "RareResearch / Stanley Lab / DeLab Platform"
+      required: true
+
+    usage_restrictions:
+      description: "Any usage restrictions (e.g., research only)"
+      example: "Research and educational use only. Not for clinical decision-making without validation."
+      required: false
+
+  # ====================
+  # RELATED RESOURCES
+  # ====================
+  related:
+    pipeline_run:
+      description: "Link to overall pipeline run metadata"
+      example: "outputs/run_20251103_123456/run_metadata.yaml"
+      required: true
+
+    upstream_outputs:
+      description: "List of output IDs this depends on"
+      type: "list"
+      example:
+        - "did:defact:output:regulatory:20251103-123456:xyz789"
+        - "did:defact:output:pathogenicity:20251103-123456:def456"
+      required: false
+
+    downstream_outputs:
+      description: "List of output IDs that depend on this"
+      type: "list"
+      required: false
+
+---
+
+# Example: Complete Metadata File
+example_differential_diagnosis_metadata:
+  identity:
+    output_id: "did:defact:output:differential:20251103-123456:abc123"
+    output_type: "differential_diagnosis"
+    format: "application/json"
+    filename: "differential_diagnosis.json"
+
+  provenance:
+    generated_by:
+      module: "RareLLM"
+      notebook: "differential_diagnosis.ipynb"
+      version: "1.0.0"
+      git_commit: null
+    execution:
+      execution_id: "run_20251103_123456"
+      timestamp: "2025-11-03T12:34:56Z"
+      duration_seconds: 125.3
+      platform: "local"
+
+  compute_environment:
+    backend: "metal"
+    model: "Qwen2.5-32B-Instruct-Q4_K_M"
+    lora_adapter: "diagnostic_analysis"
+    system_info:
+      platform: "Darwin 25.1.0"
+      python_version: "3.11.5"
+      memory_gb: 64
+
+  inputs:
+    clinical_data: "Data/PatientX/patientX_Clinical.md"
+    genomic_data: "Data/PatientX/patientX_Genomic.json"
+    regulatory_analysis: "outputs/run_20251103_123456/01_regulatory/regulatory_analysis.json"
+    pathogenicity_scores: "outputs/run_20251103_123456/02_pathogenicity/pathogenicity_scores.json"
+
+  parameters:
+    temperature: 0.3
+    max_diagnoses: 5
+    lora_adapter: "diagnostic_analysis"
+    privacy_mode: true
+
+  quality_metrics:
+    inference_time_seconds: 118.7
+    output_size_bytes: 2456
+    validation_status: true
+    validation_errors: []
+    custom_metrics:
+      num_diagnoses: 5
+      top_confidence: 0.92
+      avg_confidence: 0.78
+      diagnoses_with_omim: 5
+
+  verification:
+    checksum_sha256: "a3b2c1d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6"
+    checksum_algorithm: "SHA-256"
+    verification_timestamp: "2025-11-03T12:36:58Z"
+
+  licensing:
+    license: "CC-BY-4.0"
+    attribution: "RareResearch / Stanley Lab / DeLab Platform"
+    usage_restrictions: "Research and educational use only. Not for clinical decision-making without physician review."
+
+  related:
+    pipeline_run: "outputs/run_20251103_123456/run_metadata.yaml"
+    upstream_outputs:
+      - "did:defact:output:regulatory:20251103-123456:xyz789"
+      - "did:defact:output:pathogenicity:20251103-123456:def456"
+    downstream_outputs:
+      - "did:defact:output:toolcalls:20251103-123456:ghi012"
+
+---
+
+# Validation Rules
+validation_rules:
+  required_fields:
+    - "identity.output_id"
+    - "identity.output_type"
+    - "identity.format"
+    - "provenance.generated_by.module"
+    - "provenance.execution.execution_id"
+    - "provenance.execution.timestamp"
+    - "compute_environment.backend"
+    - "inputs"
+    - "parameters"
+    - "quality_metrics.validation_status"
+    - "verification.checksum_sha256"
+    - "licensing.license"
+
+  checksum_verification:
+    description: "Checksum must match actual file content"
+    critical: true
+
+  timestamp_format:
+    description: "All timestamps must be ISO 8601 format"
+    pattern: "YYYY-MM-DDTHH:MM:SSZ"
+
+  output_id_format:
+    description: "Output IDs must follow DID format"
+    pattern: "did:defact:output:{stage}:{run_id}:{uuid}"

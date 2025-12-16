@@ -1,0 +1,338 @@
+# UH2025Agent Topology: Privacy-First Rare Disease Diagnostic Pipeline
+# Mayo Clinic Healthcare Hackathon 2025 Demo
+
+topology:
+  # ============================================================================
+  # METADATA
+  # ============================================================================
+
+  name: "UH2025Agent"
+  version: "1.0.0"
+  description: "Privacy-first rare disease diagnostic pipeline integrating AlphaGenome, AlphaMissense, and RareLLM for comprehensive clinical analysis"
+  author: "RareResearch / Stanley Lab"
+
+  # ============================================================================
+  # GLOBAL PARAMETERS
+  # ============================================================================
+  # These can be overridden at runtime via params.yaml
+
+  parameters:
+    # Patient identification
+    patient_id: "PatientX"
+
+    # Privacy and security
+    privacy_mode: true                    # HIPAA-compliant privacy mode
+    anonymize_outputs: true               # Remove PHI from outputs
+
+    # Model configuration
+    llm_temperature_diagnostic: 0.3       # Lower = more focused for diagnostics
+    llm_temperature_tools: 0.2            # Very low for deterministic tool calls
+    llm_temperature_report: 0.4           # Moderate for fluent report writing
+
+    # Analysis thresholds
+    pathogenicity_threshold: 0.564        # AlphaMissense threshold (likely_pathogenic)
+    regulatory_impact_threshold: 0.70      # AlphaGenome confidence threshold
+    max_differential_diagnoses: 5         # Top N diagnoses to consider
+
+    # Execution control
+    enable_parallel: true                 # Parallel execution of AlphaGenome + AlphaMissense
+    timeout_minutes: 30                   # Maximum execution time per step
+
+  # ============================================================================
+  # DATASET REFERENCES
+  # ============================================================================
+  # Patient data is stored within the topology directory for privacy
+
+  datasets:
+    # Patient clinical and genomic data
+    - id: "patient-data"
+      path: "Data/"                       # Relative to topology directory
+      subset: "{{patient_id}}/"           # Dynamic patient directory
+      required: true
+      description: "De-identified patient clinical summary and genomic variants"
+
+  # ============================================================================
+  # MODULE REFERENCES
+  # ============================================================================
+  # Reference modules from /objects/modules/ directory
+
+  modules:
+    # Module 1: AlphaGenome regulatory variant analysis
+    - id: "alphagenome"
+      path: "../../modules/AlphaGenome"
+      notebook: "notebooks/main.ipynb"
+      version: ">=1.0.0"
+      description: "Regulatory variant analysis using Google DeepMind AlphaGenome API"
+
+    # Module 2: AlphaMissense pathogenicity prediction
+    - id: "alphamissense"
+      path: "../../modules/AlphaMissense"
+      notebook: "notebooks/main.ipynb"
+      version: ">=1.0.0"
+      description: "Variant pathogenicity prediction using AlphaMissense database"
+
+    # Module 3: RareLLM differential diagnosis
+    - id: "rarellm-differential"
+      path: "../../modules/RareLLM"
+      notebook: "notebooks/main.ipynb"
+      version: ">=1.0.0"
+      description: "LLM-powered differential diagnosis generation"
+
+    # Module 4: RareLLM tool call generation
+    - id: "rarellm-toolcalls"
+      path: "../../modules/RareLLM"
+      notebook: "notebooks/main.ipynb"
+      version: ">=1.0.0"
+      description: "Generate tool calls to validate diagnostic hypotheses"
+
+    # Module 5: RareLLM clinical report generation
+    - id: "rarellm-report"
+      path: "../../modules/RareLLM"
+      notebook: "notebooks/main.ipynb"
+      version: ">=1.0.0"
+      description: "Generate comprehensive clinical diagnostic report"
+
+  # ============================================================================
+  # WORKFLOW DEFINITION
+  # ============================================================================
+  # DAG structure: Steps 01-02 parallel → 03-04-05 sequential
+
+  workflow:
+    # ==========================================================================
+    # STEP 01: Regulatory Variant Analysis (Parallel with Step 02)
+    # ==========================================================================
+    - step: "01_regulatory_analysis"
+      module: "alphagenome"
+      description: "Analyze regulatory variants using AlphaGenome API"
+      depends_on: []  # No dependencies (starts immediately)
+
+      inputs:
+        # Patient identification
+        patient_id: {param: "patient_id"}
+
+        # Data paths (dynamic based on patient_id)
+        clinical_summary_path: "Data/{{patient_id}}/patientX_Clinical.md"
+        genomic_data_path: "Data/{{patient_id}}/patientX_Genomic.json"
+
+        # Configuration
+        privacy_mode: {param: "privacy_mode"}
+        output_file: "regulatory_analysis.json"
+
+      outputs:
+        regulatory_analysis: "outputs/01_regulatory/regulatory_analysis.json"
+
+      resources:
+        cpu: 2
+        memory: "4Gi"
+        timeout_minutes: {param: "timeout_minutes"}
+
+    # ==========================================================================
+    # STEP 02: Pathogenicity Scoring (Parallel with Step 01)
+    # ==========================================================================
+    - step: "02_pathogenicity_scoring"
+      module: "alphamissense"
+      description: "Predict variant pathogenicity using AlphaMissense"
+      depends_on: []  # No dependencies (parallel with step 01)
+
+      inputs:
+        # Patient identification
+        patient_id: {param: "patient_id"}
+
+        # Data paths
+        genomic_data_path: "Data/{{patient_id}}/patientX_Genomic.json"
+
+        # Configuration
+        privacy_mode: {param: "privacy_mode"}
+        output_file: "pathogenicity_scores.json"
+        confidence_threshold: {param: "pathogenicity_threshold"}
+
+      outputs:
+        pathogenicity_scores: "outputs/02_pathogenicity/pathogenicity_scores.json"
+
+      resources:
+        cpu: 2
+        memory: "4Gi"
+        timeout_minutes: {param: "timeout_minutes"}
+
+    # ==========================================================================
+    # STEP 03: Differential Diagnosis Generation
+    # ==========================================================================
+    - step: "03_differential_diagnosis"
+      module: "rarellm-differential"
+      description: "Generate differential diagnosis using RareLLM"
+      depends_on: ["01_regulatory_analysis", "02_pathogenicity_scoring"]  # Wait for both
+
+      inputs:
+        # Patient identification
+        patient_id: {param: "patient_id"}
+
+        # Data paths
+        clinical_summary_path: "Data/{{patient_id}}/patientX_Clinical.md"
+        genomic_data_path: "Data/{{patient_id}}/patientX_Genomic.json"
+
+        # LLM configuration
+        lora_adapter: "diagnostic_analysis"
+        temperature: {param: "llm_temperature_diagnostic"}
+        max_diagnoses: {param: "max_differential_diagnoses"}
+
+        # Configuration
+        privacy_mode: {param: "privacy_mode"}
+        output_file: "differential_diagnosis.json"
+
+      outputs:
+        differential_diagnosis: "outputs/03_differential/differential_diagnosis.json"
+
+      resources:
+        cpu: 4
+        memory: "16Gi"  # LLM requires more memory
+        gpu: "optional"  # GPU accelerates but not required
+        timeout_minutes: {param: "timeout_minutes"}
+
+    # ==========================================================================
+    # STEP 04: Tool Call Generation
+    # ==========================================================================
+    - step: "04_tool_call_generation"
+      module: "rarellm-toolcalls"
+      description: "Generate tool calls to validate diagnostic hypotheses"
+      depends_on: ["03_differential_diagnosis"]
+
+      inputs:
+        # Patient identification
+        patient_id: {param: "patient_id"}
+
+        # Previous results (from steps 01, 02, 03)
+        differential_path: {step: "03_differential_diagnosis", output: "differential_diagnosis"}
+        regulatory_analysis_path: {step: "01_regulatory_analysis", output: "regulatory_analysis"}
+        pathogenicity_scores_path: {step: "02_pathogenicity_scoring", output: "pathogenicity_scores"}
+
+        # LLM configuration
+        lora_adapter: "variant_analysis"
+        temperature: {param: "llm_temperature_tools"}
+
+        # Configuration
+        privacy_mode: {param: "privacy_mode"}
+        output_file: "tool_calls.json"
+
+      outputs:
+        tool_calls: "outputs/04_toolcalls/tool_calls.json"
+
+      resources:
+        cpu: 4
+        memory: "16Gi"
+        gpu: "optional"
+        timeout_minutes: {param: "timeout_minutes"}
+
+    # ==========================================================================
+    # STEP 05: Clinical Report Generation
+    # ==========================================================================
+    - step: "05_report_generation"
+      module: "rarellm-report"
+      description: "Generate comprehensive clinical diagnostic report"
+      depends_on: ["04_tool_call_generation"]
+
+      inputs:
+        # Patient identification
+        patient_id: {param: "patient_id"}
+
+        # Data paths
+        clinical_summary_path: "Data/{{patient_id}}/patientX_Clinical.md"
+
+        # Previous results (from steps 03, 04)
+        differential_path: {step: "03_differential_diagnosis", output: "differential_diagnosis"}
+        tool_calls_path: {step: "04_tool_call_generation", output: "tool_calls"}
+
+        # LLM configuration
+        lora_adapter: "report_generation"
+        temperature: {param: "llm_temperature_report"}
+
+        # Configuration
+        privacy_mode: {param: "privacy_mode"}
+        output_file: "clinical_report.md"
+
+      outputs:
+        clinical_report: "outputs/05_report/clinical_report.md"
+        report_metadata: "outputs/05_report/clinical_report.json"
+
+      resources:
+        cpu: 4
+        memory: "16Gi"
+        gpu: "optional"
+        timeout_minutes: {param: "timeout_minutes"}
+
+  # ============================================================================
+  # DEPLOYMENT CONFIGURATION
+  # ============================================================================
+
+  deployment:
+    # L1 (Local) - Development
+    local:
+      executor: "papermill"
+      storage: "local_filesystem"
+      output_dir: "outputs/"
+
+    # L2 (Ray Cluster) - Academic
+    ray:
+      executor: "ray_workflow"
+      storage: "s3"
+      output_bucket: "rare-research-l2/UH2025Agent/"
+      runtime_env:
+        pip: "requirements.txt"
+
+    # L3 (Kubeflow) - Hyperscale
+    kubeflow:
+      executor: "kubeflow_pipelines"
+      storage: "s3"
+      output_bucket: "rare-research-l3/UH2025Agent/"
+      namespace: "rare-disease-pipelines"
+      service_account: "pipeline-runner"
+
+  # ============================================================================
+  # MONITORING AND OBSERVABILITY
+  # ============================================================================
+
+  monitoring:
+    # Metrics to track
+    metrics:
+      - execution_time_seconds
+      - step_success_rate
+      - llm_inference_time
+      - api_call_count
+      - output_file_size
+
+    # Alerts
+    alerts:
+      - condition: "execution_time_seconds > 1800"  # 30 minutes
+        action: "notify_admin"
+      - condition: "step_failure"
+        action: "log_and_notify"
+
+    # Provenance tracking
+    provenance:
+      enabled: true
+      track_git_commit: true
+      track_module_versions: true
+      track_execution_environment: true
+
+  # ============================================================================
+  # COMPLIANCE AND SECURITY
+  # ============================================================================
+
+  compliance:
+    # HIPAA compliance
+    hipaa:
+      enabled: true
+      audit_log: "logs/audit.log"
+      encryption_at_rest: true
+      encryption_in_transit: true
+
+    # Data retention
+    retention:
+      outputs_days: 90
+      logs_days: 365
+      audit_logs_days: 2555  # 7 years (HIPAA requirement)
+
+    # Access control
+    access:
+      require_authentication: true
+      authorized_users: ["clinician", "researcher", "admin"]
+      authorized_systems: ["mayo_clinic_ehr", "genomics_lab"]

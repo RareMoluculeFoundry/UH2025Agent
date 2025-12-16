@@ -1,0 +1,133 @@
+# Neuromuscular Disease Seed
+# For generating synthetic patients with muscular dystrophies and myopathies
+
+disease_category: "Neuromuscular Disorder"
+
+example_conditions:
+  - "Duchenne Muscular Dystrophy"
+  - "Becker Muscular Dystrophy"
+  - "Limb-Girdle Muscular Dystrophy"
+  - "Facioscapulohumeral Dystrophy"
+  - "Myotonic Dystrophy Type 1"
+  - "Myotonic Dystrophy Type 2"
+  - "Congenital Myopathy"
+  - "Pompe Disease"
+  - "Spinal Muscular Atrophy"
+  - "Charcot-Marie-Tooth Disease"
+
+genes_of_interest:
+  - DMD         # Duchenne/Becker
+  - DMPK        # Myotonic Dystrophy 1
+  - CNBP        # Myotonic Dystrophy 2
+  - DUX4        # FSHD (via D4Z4 contraction)
+  - SMN1        # Spinal Muscular Atrophy
+  - GAA         # Pompe Disease
+  - LMNA        # Various LGMD and CMD
+  - CAPN3       # LGMD2A
+  - DYSF        # LGMD2B/Miyoshi
+  - SGCA        # LGMD2D
+  - PMP22       # CMT1A
+
+phenotype_features:
+  - "progressive muscle weakness"
+  - "proximal weakness"
+  - "distal weakness"
+  - "facial weakness"
+  - "scapular winging"
+  - "calf pseudohypertrophy"
+  - "Gowers sign"
+  - "elevated CK"
+  - "myotonia"
+  - "cataracts"
+  - "cardiac involvement"
+  - "respiratory compromise"
+  - "scoliosis"
+  - "contractures"
+  - "delayed motor milestones"
+  - "foot drop"
+  - "sensory loss"
+
+inheritance_patterns:
+  - "XLR"  # DMD, BMD
+  - "AD"   # DM1, FSHD
+  - "AR"   # Many LGMDs, Pompe, SMA
+
+typical_age_range: [0, 60]
+sex_bias: null  # Varies by condition (DMD is X-linked)
+
+complexity_distribution:
+  straightforward: 0.25
+  moderate: 0.40
+  challenging: 0.25
+  expert: 0.10
+
+canonical_variants:
+  - gene: DMD
+    variant: "Exon 45-50 deletion"
+    protein_change: "Frameshift"
+    condition: "Duchenne Muscular Dystrophy"
+    inheritance: "XLR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: DMPK
+    variant: "CTG repeat expansion (>50)"
+    protein_change: "N/A - repeat expansion"
+    condition: "Myotonic Dystrophy Type 1"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: SMN1
+    variant: "Exon 7-8 deletion (homozygous)"
+    protein_change: "Null"
+    condition: "Spinal Muscular Atrophy"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: GAA
+    variant: "c.-32-13T>G"
+    protein_change: "Splicing defect"
+    condition: "Pompe Disease"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+differential_diagnoses:
+  - "Inflammatory myopathy"
+  - "Metabolic myopathy"
+  - "Endocrine myopathy"
+  - "Drug-induced myopathy"
+  - "Motor neuron disease"
+
+generation_prompt: |
+  Generate a realistic clinical summary for a patient with suspected
+  neuromuscular disease. Consider:
+
+  - Distribution of weakness (proximal vs distal vs facial)
+  - Age of onset and progression pattern
+  - Family history and inheritance pattern
+  - Associated features (cardiac, respiratory, cognitive)
+  - Lab findings (CK level, EMG pattern)
+  - Functional impact (ambulation, stairs, rising from floor)
+
+  Clinical pearls:
+  - DMD: onset <5yo, Gowers sign, pseudohypertrophy, frameshift
+  - BMD: milder DMD, in-frame mutations, cardiac may precede skeletal
+  - DM1: distal > proximal, myotonia, cataracts, frontal balding
+  - FSHD: asymmetric, face-shoulder-arm, scapular winging
+  - SMA: proximal, tongue fasciculations, normal cognition
+  - Pompe: respiratory > limb, enzyme deficiency
+
+hpo_terms:
+  - HP:0003325  # Limb-girdle muscle weakness
+  - HP:0009046  # Progressive proximal muscle weakness
+  - HP:0001288  # Gait disturbance
+  - HP:0003236  # Elevated serum creatine kinase
+  - HP:0001371  # Flexion contracture
+  - HP:0003202  # Skeletal muscle atrophy
+
+omim_references:
+  - "310200"  # Duchenne Muscular Dystrophy
+  - "300376"  # Becker Muscular Dystrophy
+  - "160900"  # Myotonic Dystrophy Type 1
+  - "158900"  # FSHD
+  - "253300"  # Spinal Muscular Atrophy Type 1
+  - "232300"  # Pompe Disease

@@ -1,0 +1,15 @@
+# Jupytext Configuration for Module Notebooks
+# This file configures automatic pairing of .ipynb and .py files
+
+# Pairing format: .ipynb <-> .py:percent
+# The py:percent format uses # %% cell markers
+formats = "ipynb,py:percent"
+
+# Notebook-level metadata to preserve
+# Keep kernelspec and jupytext configuration
+notebook_metadata_filter = "kernelspec,jupytext"
+
+# Cell-level metadata to preserve
+# Keep: tags, execution_group, depends_on, agent_hints
+# Exclude: ExecuteTime (changes on every run)
+cell_metadata_filter = "tags,execution_group,depends_on,agent_hints,-ExecuteTime"

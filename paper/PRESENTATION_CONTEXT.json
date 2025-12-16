@@ -1,0 +1,116 @@
+{
+  "project_title": "The Rare Arena Network",
+  "global_context": "# UH2025-Paper: Context & Methodology\n\n## Thesis\nThe \"Diagnostic Odyssey\" for rare diseases can be solved by **Edge-Native AI Agents** that bring world-class diagnostic reasoning to the patient's bedside (On-Prem) while learning from a global federation of experts (The Arena).\n\n## Core Concepts\n\n### 1. The M4 Envelope (Privacy by Physics)\n*   **Definition**: The constraint that the entire diagnostic stack must run on high-end consumer hardware (e.g., MacBook Pro M4) or local hospital servers.\n*   **Implication**: By running 100% locally, we eliminate the risk of PHI leakage to cloud providers. We use quantized models (Llama 3.2, Qwen 2.5) and local vector stores.\n\n### 2. Federated Context Engineering\n*   **Definition**: Sharing *how* to solve a problem (prompts, logic chains) rather than *who* has the problem (patient data).\n*   **Mechanism**: The \"Diagnostic Arena\" collects RLHF on agent outputs. These corrections update the global prompt registry and LoRA adapters.\n*   **The \"Hackathon Effect\"**: We view Hackathons (like those by the **Wilhelm Foundation** and **Rare Care Centre**) not just as events, but as **high-intensity training runs** for the agent. The \"Tacit Knowledge\" of 50 assembled experts is captured into the system's \"Context\" (prompts/logic), effectively digitizing the hackathon itself.\n\n### 3. Agentic Topology\n*   **Ingestion**: Normalization of chaos.\n*   **Structuring**: Reasoning and planning.\n*   **Executor**: Deterministic tool use.\n*   **Synthesis**: Rhetorical construction of the report.\n\n## The Role of Decentralized Networks\nThis system relies on a network of \"Citizen Scientists,\" Clinicians, and ML Engineers.\n*   **Wilhelm Foundation**: Providing the patient advocacy and \"Seed Cases.\"\n*   **Rare Care Centre**: Providing clinical validation and \"Ground Truth.\"\n*   **The Builders**: Python engineers and data scientists translating clinical needs into agent logic.\n\n## References\n*   *AlphaMissense* (Cheng et al., 2023)\n*   *SpliceAI* (Jaganathan et al., 2019)\n*   *Lattice Protocol* (Internal Standard)\n",
+  "sections": [
+    {
+      "section_id": "01_introduction",
+      "title": "The Global Burden & The UH2025 Vision",
+      "source_files": "`diagnostic_odyssey.md`, `economic_burden.md`",
+      "generative_prompt": "> **Role**: Scientific Communicator\n> **Task**: Explain the \"Diagnostic Odyssey\" and the \"UH2025 Vision\" to a mixed audience of clinicians and technologists.\n> **Key Points**:\n> - The Paradox: Rare diseases are individually rare but collectively massive (350M people).\n> - The Problem: Centralized AI puts privacy at risk and limits access.\n> - The Vision: Collaborative, on-prem agentic systems can replicate \"Hackathon Magic\" without data egress.",
+      "mermaid_diagram": "graph TD\n    Clinicians[(\"\ud83e\ude7a Clinical Expertise\")]\n    Devs[(\"\ud83d\udcbb Technical Innovation\")]\n    Patients[(\"\u2764\ufe0f Patient Needs\")]\n\n    Core(((\"\ud83d\ude80 UH2025 Agentic CDS\\n(The Solution)\")))\n\n    Clinicians -->|Domain Knowledge| Core\n    Devs -->|Agent Architecture| Core\n    Patients -->|Data & Urgency| Core\n\n    style Clinicians fill:#aed6f1,stroke:#3498db\n    style Devs fill:#abebc6,stroke:#2ecc71\n    style Patients fill:#f9e79f,stroke:#f1c40f\n    style Core fill:#fff,stroke:#8e44ad,stroke-width:4px",
+      "pull_quotes": [
+        "If the global population of individuals with rare diseases were a single nation, it would be the third-largest country on Earth.",
+        "The 'diagnostic gap' is not merely a failure of technology but a failure of the current centralized model."
+      ]
+    },
+    {
+      "section_id": "02_hackathon",
+      "title": "The Undiagnosed Hackathon & Swarm Dynamics",
+      "source_files": "`methodology.md`, `swarm_dynamics.md`",
+      "generative_prompt": "> **Role**: Scientific Historian\n> **Task**: Describe the \"Undiagnosed Hackathon\" as the manual prototype for the UH2025 Agent.\n> **Key Points**:\n> - Origin: Wilhelm Foundation's mission to solve the unsolvable.\n> - Method: \"Extreme Collaboration\" where tool-makers (Illumina, Nanopore) sit with tool-users (Clinicians).\n> - Outcome: 4 diagnoses in 48 hours (Stockholm pilot) - proof that data integration works.",
+      "mermaid_diagram": "graph LR\n    subgraph Phase1[\"Phase 1: Pilot (The Hackathon)\"]\n        Agent_V1[(\"Agent V1\")]\n        Pilot_Review[(\"Manual Expert Review\")]\n        Paper[(\"Methods Paper\")]\n    end\n\n    subgraph Phase2[\"Phase 2: Expansion\"]\n        Feedback_Loop[(\"System Learning\")]\n        Fed_Net[(\"Federated Network\")]\n    end\n\n    subgraph Phase3[\"Phase 3: Validation\"]\n        Synth_Data[(\"Synthetic Patient Gen\")]\n        Decentral_Val[(\"Decentralized Validation\")]\n        Global_V2[(\"Global Model V2\")]\n    end\n\n    Agent_V1 --> Pilot_Review\n    Pilot_Review --> Paper\n    Pilot_Review --> Feedback_Loop\n    Feedback_Loop --> Fed_Net\n    Fed_Net --> Synth_Data\n    Synth_Data --> Decentral_Val\n    Decentral_Val --> Global_V2\n\n    style Phase1 fill:#d6eaf8,stroke:#3498db\n    style Phase2 fill:#d5f5e3,stroke:#2ecc71\n    style Phase3 fill:#fcf3cf,stroke:#f1c40f",
+      "pull_quotes": [
+        "Unlike traditional hackathons that focus on software development, this event is a high-intensity medical investigation.",
+        "Each time the bell rang, scientists cheered... symbolizing the end of years of uncertainty."
+      ]
+    },
+    {
+      "section_id": "03_workflow",
+      "title": "The Planner-Executor Cognitive Model",
+      "source_files": "`planner_executor.md`, `tool_list.md`",
+      "generative_prompt": "> **Role**: Cognitive Scientist\n> **Task**: Explain the \"Planner-Executor\" dynamic in clinical diagnostics.\n> **Key Points**:\n> - Humans split the task: Senior Clinician (Strategy) vs. Bioinformatician (Tactics).\n> - The Bottleneck: Human communication latency (emails, meetings) slows the loop.\n> - The Agentic Solution: Integrating both roles into a single loop reduces latency from days to seconds.",
+      "mermaid_diagram": "graph TB\n    Input[(\"Patient Context JSON\")] --> Agent[\"Structuring Agent (Qwen 14B)\\n(The Planner)\"]\n\n    subgraph Outputs[\"Diagnostic Artifacts\"]\n        direction LR\n        Diag[(\"\ud83d\udccb Diagnostic Table\\n(Ranked Hypotheses)\")]\n        Var[(\"\ud83e\uddec Variants Table\\n(Genomic Targets)\")]\n        Plan[(\"\u2699\ufe0f Tool Plan\\n(The Tool List)\")]\n    end\n\n    Agent -->|RAG Retrieval| Diag\n    Agent -->|Filter & Annotate| Var\n    Agent -->|Determine Needs| Plan\n\n    style Agent fill:#3498db,color:#fff\n    style Diag fill:#fff,stroke:#e74c3c\n    style Var fill:#fff,stroke:#27ae60\n    style Plan fill:#fff,stroke:#8e44ad",
+      "pull_quotes": [
+        "The 'Tool List' generated by the clinicians is the critical artifact... It represents the logic of diagnosis.",
+        "An 'agentic' workflow reasons about the data and adapts the path accordingly, unlike a static pipeline."
+      ]
+    },
+    {
+      "section_id": "04_multiomics",
+      "title": "Beyond the Exome: The Multi-Omics Frontier",
+      "source_files": "`beyond_exome.md`, `data_integration.md`",
+      "generative_prompt": "> **Role**: Genomic Data Scientist\n> **Task**: Explain why standard genetic testing fails 60% of patients.\n> **Key Points**:\n> - Standard of Care: Short-read WES looks at 1-2% of the genome.\n> - The Missing Answers: Deep intronic variants, repeat expansions, and methylation anomalies are invisible to WES.\n> - The Tech Stack: Long-read sequencing (Nanopore) + Transcriptomics (RNA) + Methylation = The Full Picture.",
+      "mermaid_diagram": "graph LR\n    subgraph Layers[\"The Multi-Omics Stack\"]\n        DNA[(\"\ud83e\uddec DNA Sequence\\n(WGS)\")]\n        RNA[(\"\ud83d\udcdd RNA Expression\\n(Transcriptomics)\")]\n        Meth[(\"\ud83d\udd16 Methylation\\n(Epigenetics)\")]\n    end\n\n    subgraph Insight[\"Diagnostic Yield\"]\n        WES[\"Standard WES\\n(30-40%)\"]\n        Multi[\"Multi-Omics\\n(>60%)\"]\n    end\n\n    DNA --> WES\n    DNA --> Multi\n    RNA --> Multi\n    Meth --> Multi\n\n    style Layers fill:#e8f8f5,stroke:#1abc9c\n    style Insight fill:#fcf3cf,stroke:#f1c40f",
+      "pull_quotes": [
+        "The transition from WES to comprehensive multi-omics is essential for solving the remaining 60% of undiagnosed cases.",
+        "A variant might look benign in the DNA sequence, but RNA-seq can show that it causes exon skipping."
+      ]
+    },
+    {
+      "section_id": "05_agentic_ai",
+      "title": "The Agentic Architecture: Planner, Executor, Evaluator",
+      "source_files": "`architecture.md`, `biotools_registry.md`",
+      "generative_prompt": "> **Role**: AI Architect\n> **Task**: Explain the technical architecture of the UH2025 Agent.\n> **Key Points**:\n> - The Pipeline: Four agents (Ingestion, Structuring, Executor, Synthesis) coordinated by a state machine.\n> - The Brain: LLMs (Llama 3, Qwen 2.5) provide reasoning and planning.\n> - The Senses: Deep Learning models (AlphaMissense, AlphaGenome) provide high-precision data.",
+      "mermaid_diagram": "graph TD\n    Plan[(\"Tool Plan\")] --> Executor(((\"Executor Hub\\n(Python Runtime)\")))\n\n    subgraph Sensor_Layer[\"Deep Learning Sensors\"]\n        AlphaM[\"AlphaMissense\\n(Protein Effect)\"]\n        AlphaG[\"AlphaGenome\\n(Regulatory Effect)\"]\n    end\n\n    subgraph Tool_Layer[\"Bioinformatics Library\"]\n        ClinVar[\"ClinVar API\"]\n        SpliceAI[\"SpliceAI Model\"]\n    end\n\n    Executor -->|Query| AlphaM\n    Executor -->|Query| AlphaG\n    Executor -->|Call| ClinVar\n    Executor -->|Run| SpliceAI\n\n    Executor --> Results[(\"Aggregated Tool Results\")]\n\n    style Executor fill:#2c3e50,stroke:#fff,color:#fff\n    style Sensor_Layer fill:#2ecc71,stroke:#27ae60\n    style Tool_Layer fill:#ecf0f1,stroke:#bdc3c7",
+      "pull_quotes": [
+        "An AI agent is not just a script; it is a software system capable of perception, reasoning, and autonomous action.",
+        "AlphaMissense serves as a high-precision 'sensor' for the Agentic Planner, providing confident data points in the vast search space."
+      ]
+    },
+    {
+      "section_id": "06_federation",
+      "title": "The Rare Arena Network: Federated Learning",
+      "source_files": "`privacy_utility.md`, `swarm_learning.md`",
+      "generative_prompt": "> **Role**: Network Architect\n> **Task**: Explain the Federated Learning infrastructure of the Rare Arena Network.\n> **Key Points**:\n> - The Dilemma: We need global data to solve rare diseases, but privacy laws prevent sharing it.\n> - The Solution: Federated Learning sends the AI model to the hospital, trains it locally, and sends back only the \"lesson\" (gradient weights).\n> - The Protection: Differential Privacy ensures that the \"lesson\" cannot be traced back to any specific patient.",
+      "mermaid_diagram": "graph TD\n    Central[(\"Aggregation Server\\n(Global Weights)\")]\n\n    subgraph Node_A[\"\ud83c\udfe5 Hospital Node A\"]\n        Local_A[(\"Local Model\")]\n    end\n\n    subgraph Node_B[\"\ud83c\udfe5 Hospital Node B\"]\n        Local_B[(\"Local Model\")]\n    end\n\n    subgraph Node_C[\"\ud83c\udfe5 Hospital Node C\"]\n        Local_C[(\"Local Model\")]\n    end\n\n    Local_A <-->|Weight Updates| Central\n    Local_B <-->|Weight Updates| Central\n    Local_C <-->|Weight Updates| Central\n\n    Node_A -.-x|No Patient Data| Node_B\n    Node_B -.-x|No Patient Data| Node_C\n\n    style Central fill:#d35400,stroke:#e67e22,color:#fff",
+      "pull_quotes": [
+        "We need global data to solve rare diseases, but we cannot move the data.",
+        "Federated Learning offers the solution: 'Bring the code to the data, not the data to the code'."
+      ]
+    },
+    {
+      "section_id": "07_rlhf",
+      "title": "The Doctor-in-the-Loop: RLHF & The Alignment Paradox",
+      "source_files": "`doctor_in_loop.md`, `ui_implementation.md`",
+      "generative_prompt": "> **Role**: UX/AI Researcher\n> **Task**: Explain the \"Doctor-in-the-Loop\" RLHF mechanism.\n> **Key Points**:\n> - The Challenge: Medical AI faces an \"Alignment Paradox\" where accurate models are rejected for opaque reasoning.\n> - The Solution: An interactive \"Arena\" interface where doctors critique (\"roast\") the AI's logic.\n> - The Outcome: The model learns *how* a doctor thinks, not just the final diagnosis.",
+      "mermaid_diagram": "graph LR\n    User(((\"\ud83d\udc64 User / Expert\")))\n\n    subgraph Interface[\"Arena Interface\"]\n        Config[\"1. Configuration\\n(Prompts/Models)\"]\n        Evaluator[\"2. Evaluator Agent\\n(Quality Control)\"]\n        Display[\"3. Output Display\"]\n        Input[\"4. Feedback Entry\"]\n    end\n\n    subgraph Backend[\"Data Collection\"]\n        Logs[(\"Performance Logs\")]\n        Training[(\"Training Dataset\")]\n    end\n\n    User -->|Selects| Config\n    Config -->|Runs| Evaluator\n    Evaluator -->|Validates| Display\n    Display -->|Reviews| User\n    User -->|Submits| Input\n    Input -->|Captures| Logs\n    Logs -->|Aggregates| Training\n    Training -.->|Improves| Config\n\n    style Interface fill:#f4ecf7,stroke:#9b59b6\n    style Backend fill:#e8f6f3,stroke:#16a085\n    style Evaluator fill:#e67e22,stroke:#d35400,color:#fff",
+      "pull_quotes": [
+        "As they critique the models... they are effectively transferring their intuition and expertise into the AI's neural network.",
+        "This process captures the tacit knowledge of the world's best diagnosticians."
+      ]
+    },
+    {
+      "section_id": "08_validation",
+      "title": "Validation: Clinical & Economic Impact",
+      "source_files": "`case_studies.md`, `baby_bear.md`",
+      "generative_prompt": "> **Role**: Health Economist / Clinical Researcher\n> **Task**: Validate the \"Rare Arena\" model using historical data.\n> **Key Points**:\n> - Clinical Proof: The Hackathon solved \"cold cases\" by using the exact multi-omics tools we are automating (e.g., DNA2 deep intronic variant).\n> - Economic Proof: Project Baby Bear proved that rapid WGS saves $2.5M for every 180 infants.\n> - Conclusion: Precision diagnosis is cheaper than the \"Diagnostic Odyssey.\"",
+      "mermaid_diagram": "graph TD\n    subgraph Cost_Odyssey[\"Diagnostic Odyssey Cost\"]\n        Hosp1[\"ICU Stay (Days)\"]\n        Test1[\"Repeated Panels\"]\n        Surg1[\"Biopsies/Surgeries\"]\n    end\n\n    subgraph Cost_Precision[\"Precision Diagnosis Cost\"]\n        Seq[\"Rapid WGS ($5k)\"]\n        Compute[\"AI Analysis\"]\n    end\n\n    Hosp1 -->|Avoided| Savings[(\"\ud83d\udcb0 Net Savings: $2.5M\")]\n    Test1 -->|Avoided| Savings\n    Surg1 -->|Avoided| Savings\n\n    Seq -->|Enables| Diagnosis\n    Diagnosis -->|Triggers| Savings\n\n    style Cost_Odyssey fill:#e74c3c,stroke:#c0392b\n    style Cost_Precision fill:#27ae60,stroke:#2ecc71\n    style Savings fill:#f1c40f,stroke:#f39c12",
+      "pull_quotes": [
+        "Rapid diagnosis led to changes in clinical management for 65% of the diagnosed infants.",
+        "The cost of the sequencing... was far outweighed by the savings ($2.2\u20132.9 million)."
+      ]
+    },
+    {
+      "section_id": "09_ethics",
+      "title": "Ethics: Hallucination, Bias, and Equity",
+      "source_files": "`challenges.md`",
+      "generative_prompt": "> **Role**: Bioethicist\n> **Task**: Address the ethical challenges of AI in rare disease diagnosis.\n> **Key Points**:\n> - Hallucination: A real risk. Mitigation = Grounding + Evaluator Agent.\n> - Bias: Genomic data is too white. Solution = Federated Learning with diverse global nodes.\n> - Equity: Federation allows developing nations to contribute data without losing sovereignty (\"Data Colonialism\").",
+      "mermaid_diagram": "graph TD\n    subgraph Risks\n        Hallucination[\"Hallucination Risk\"]\n        Bias[\"Data Bias (Euro-centric)\"]\n    end\n\n    subgraph Mitigations\n        Evaluator[\"Evaluator Agent\\n(Grounding Check)\"]\n        Federation[\"Federated Network\\n(Global South Nodes)\"]\n    end\n\n    Hallucination -->|Mitigated by| Evaluator\n    Bias -->|Mitigated by| Federation\n\n    style Risks fill:#e74c3c,stroke:#c0392b\n    style Mitigations fill:#2ecc71,stroke:#27ae60",
+      "pull_quotes": [
+        "Strict 'grounding' mechanisms are required, where the AI must cite its sources before a recommendation is accepted.",
+        "Federating the learning... respects data sovereignty while improving global equity."
+      ]
+    },
+    {
+      "section_id": "10_future",
+      "title": "Future Outlook: Democratized Access & Scalability",
+      "source_files": "`outlook.md`",
+      "generative_prompt": "> **Role**: Medical Futurist\n> **Task**: Describe the future of the Rare Arena Network.\n> **Key Points**:\n> - Scalability: Code that runs on a laptop (L1) can scale to a datacenter (L3).\n> - Automation: \"Always-on\" re-analysis means no case is ever closed until solved.\n> - Vision: The end of the \"Diagnostic Odyssey\" through distributed, agentic intelligence.",
+      "mermaid_diagram": "graph TD\n    Repo[(\"GitHub / Docker Hub\")]\n\n    subgraph Endpoints[\"Deployment Targets\"]\n        Tier1[\"Tier 1: Academic Medical Center\\n(Training Node)\"]\n        Tier2[\"Tier 2: Community Hospital\\n(Inference Node)\"]\n        Tier3[\"Tier 3: Rural Clinic / Laptop\\n(Access Point)\"]\n    end\n\n    Repo -->|Pull Image| Tier1\n    Repo -->|Pull Image| Tier2\n    Repo -->|Pull Image| Tier3\n\n    style Repo fill:#2c3e50,stroke:#fff,color:#fff\n    style Endpoints fill:#d5f5e3,stroke:#2ecc71",
+      "pull_quotes": [
+        "The technology is no longer the bottleneck; the tools exist. The challenge now is integration.",
+        "We envision a future where diagnosis is autonomous... ensuring that no case is ever truly 'closed' until solved."
+      ]
+    }
+  ]
+}

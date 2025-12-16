@@ -1,0 +1,183 @@
+{
+  "patient_id": "SyntheticDemo_001",
+  "case_type": "synthetic_demo",
+  "complexity_level": "moderate",
+  "created_date": "2025-11-26",
+  "purpose": "RLHF demonstration - end-to-end pipeline validation",
+
+  "ground_truth_diagnosis": {
+    "primary_diagnosis": {
+      "condition": "Dravet Syndrome",
+      "omim": "607208",
+      "orpha": "33069",
+      "icd10": "G40.409",
+      "confidence": "definitive",
+      "causative_gene": "SCN1A",
+      "causative_variant": "c.4933C>T (p.Arg1645Ter)",
+      "inheritance": "de_novo"
+    },
+    "secondary_findings": [
+      {
+        "condition": "GABRA1 variant of uncertain significance",
+        "clinical_relevance": "possible_modifier",
+        "requires_followup": true,
+        "notes": "May contribute to seizure severity or represent genetic background variation"
+      }
+    ]
+  },
+
+  "expected_differential_diagnosis": {
+    "rank_1": {
+      "diagnosis": "Dravet Syndrome",
+      "gene": "SCN1A",
+      "expected_confidence": 0.95,
+      "key_supporting_features": [
+        "Prolonged febrile seizures in infancy",
+        "Multiple seizure types",
+        "Developmental regression",
+        "Photosensitivity",
+        "Worsening with sodium channel blockers",
+        "De novo truncating SCN1A variant"
+      ]
+    },
+    "rank_2": {
+      "diagnosis": "SCN1A-negative Dravet-like syndrome",
+      "gene": "Multiple (SCN1B, SCN2A, GABRA1, GABRG2, PCDH19)",
+      "expected_confidence": 0.03,
+      "notes": "Would be considered if SCN1A testing was negative"
+    },
+    "rank_3": {
+      "diagnosis": "GABRA1-related epileptic encephalopathy",
+      "gene": "GABRA1",
+      "expected_confidence": 0.01,
+      "notes": "GABRA1 variant present but likely not primary cause given inheritance pattern"
+    },
+    "rank_4": {
+      "diagnosis": "Other genetic epileptic encephalopathy",
+      "gene": "Various",
+      "expected_confidence": 0.01,
+      "notes": "Broad category for remaining probability"
+    }
+  },
+
+  "expected_variant_classifications": {
+    "SCN1A_c.4933C>T": {
+      "expected_classification": "Pathogenic",
+      "expected_acmg_criteria": ["PVS1", "PS2", "PM2", "PP3", "PP4"],
+      "is_causative": true,
+      "notes": "Truncating variant in haploinsufficiency gene with de novo status"
+    },
+    "SCN9A_c.2215G>A": {
+      "expected_classification": "Likely Benign",
+      "expected_acmg_criteria": ["BS1", "BP4"],
+      "is_causative": false,
+      "notes": "Population frequency and computational evidence argue against pathogenicity"
+    },
+    "GABRA1_c.641G>A": {
+      "expected_classification": "VUS",
+      "expected_acmg_criteria": ["PM2", "PP3", "BS4"],
+      "is_causative": false,
+      "notes": "Rare variant but inherited from unaffected father"
+    }
+  },
+
+  "expected_tool_outputs": {
+    "clinvar": {
+      "SCN1A_c.4933C>T": "Pathogenic (2 stars)",
+      "GABRA1_c.641G>A": "VUS (1 star)"
+    },
+    "alphamissense": {
+      "GABRA1_c.641G>A": 0.72,
+      "SCN9A_c.2215G>A": 0.28
+    },
+    "spliceai": {
+      "all_variants": "No significant splicing impact (max delta < 0.1)"
+    },
+    "revel": {
+      "GABRA1_c.641G>A": 0.68,
+      "SCN9A_c.2215G>A": 0.32
+    }
+  },
+
+  "expected_recommendations": [
+    {
+      "category": "treatment",
+      "recommendation": "Avoid sodium channel blocker antiepileptic drugs (carbamazepine, lamotrigine, phenytoin)",
+      "priority": "high"
+    },
+    {
+      "category": "treatment",
+      "recommendation": "Continue current Dravet-appropriate regimen (valproate, clobazam, stiripentol)",
+      "priority": "high"
+    },
+    {
+      "category": "treatment",
+      "recommendation": "Consider adding fenfluramine if seizures remain uncontrolled",
+      "priority": "medium"
+    },
+    {
+      "category": "monitoring",
+      "recommendation": "SUDEP risk counseling and seizure monitoring",
+      "priority": "high"
+    },
+    {
+      "category": "genetic_counseling",
+      "recommendation": "Counsel family on de novo inheritance and low recurrence risk",
+      "priority": "medium"
+    },
+    {
+      "category": "support",
+      "recommendation": "Refer to Dravet Syndrome Foundation for resources",
+      "priority": "medium"
+    }
+  ],
+
+  "evaluation_criteria": {
+    "diagnosis_accuracy": {
+      "weight": 0.35,
+      "rubric": {
+        "excellent": "Dravet syndrome ranked first with high confidence, SCN1A identified as causative",
+        "good": "Dravet syndrome in top 2, genetic epileptic encephalopathy considered",
+        "acceptable": "Correct gene family identified (sodium channels)",
+        "poor": "Missed SCN1A or misclassified as benign condition"
+      }
+    },
+    "variant_classification": {
+      "weight": 0.25,
+      "rubric": {
+        "excellent": "All three variants correctly classified per ACMG guidelines",
+        "good": "SCN1A correctly classified as pathogenic, others reasonable",
+        "acceptable": "Primary variant identified but classification criteria incomplete",
+        "poor": "SCN1A misclassified or causative variant missed"
+      }
+    },
+    "treatment_recommendations": {
+      "weight": 0.25,
+      "rubric": {
+        "excellent": "All key recommendations present, drug avoidance emphasized",
+        "good": "Sodium channel blocker avoidance mentioned, appropriate medications listed",
+        "acceptable": "Some relevant recommendations but incomplete",
+        "poor": "Missing critical safety information (drug avoidance)"
+      }
+    },
+    "completeness": {
+      "weight": 0.15,
+      "rubric": {
+        "excellent": "All sections complete with supporting evidence cited",
+        "good": "Major sections complete, minor gaps",
+        "acceptable": "Core diagnosis present but limited detail",
+        "poor": "Significant missing information"
+      }
+    }
+  },
+
+  "metadata": {
+    "source": "synthetic",
+    "inspired_by": "Composite of published Dravet syndrome cases",
+    "references": [
+      "Dravet C. (2011). Dravet syndrome history. Dev Med Child Neurol. 53 Suppl 2:1-6.",
+      "Wirrell EC, et al. (2022). International consensus on diagnosis and management of Dravet syndrome. Epilepsia. 63(7):1761-1777.",
+      "Claes L, et al. (2001). De novo mutations in the sodium-channel gene SCN1A cause severe myoclonic epilepsy of infancy. Am J Hum Genet. 68(6):1327-32."
+    ]
+  }
+}

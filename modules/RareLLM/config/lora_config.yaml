@@ -1,0 +1,74 @@
+# LoRA Configuration for RareLLM Module
+# Defines custom LoRA adapters for different reasoning tasks
+
+base_model:
+  path: "models/base/Qwen2.5-32B-Instruct-Q4_K_M.gguf"
+  context_length: 8192  # Tokens
+  n_gpu_layers: 32  # Metal acceleration (adjust for CPU: 0)
+
+lora_adapters:
+  # Stage 1: Differential Diagnosis Generation
+  diagnostic_analysis:
+    path: "models/lora/diagnostic_analysis.gguf"
+    description: "Specialized for rare disease differential diagnosis"
+    temperature: 0.3  # Focused reasoning
+    max_tokens: 1024
+    top_p: 0.95
+    # Future training targets:
+    # - Medical literature (rare diseases)
+    # - Clinical case studies
+    # - OMIM disease descriptions
+
+  # Stage 2: Tool Call Generation
+  variant_analysis:
+    path: "models/lora/variant_analysis.gguf"
+    description: "Generates structured tool calls for variant validation"
+    temperature: 0.1  # Very deterministic
+    max_tokens: 512
+    top_p: 0.9
+    # Future training targets:
+    # - Variant annotation examples
+    # - ClinVar/gnomAD query patterns
+    # - Tool call specifications
+
+  # Stage 3: Clinical Report Writing
+  report_generation:
+    path: "models/lora/report_generation.gguf"
+    description: "Professional clinical report writing"
+    temperature: 0.4  # Fluent but controlled
+    max_tokens: 2048
+    top_p: 0.95
+    # Future training targets:
+    # - Clinical report corpus
+    # - Medical writing standards
+    # - ACMG/AMP guidelines
+
+# LoRA Training Parameters (for future implementation)
+lora_training:
+  rank: 16
+  alpha: 32
+  target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+  dropout: 0.05
+  bias: "none"
+
+# Backend Configuration
+backend:
+  auto_detect: true
+  fallback_chain:
+    - metal  # Apple Silicon
+    - cuda   # NVIDIA
+    - rocm   # AMD
+    - cpu    # Fallback
+
+# Privacy and Security
+privacy:
+  mode: "local_only"  # Never send data to external APIs
+  phi_detection: true  # Warn if PHI detected in prompts
+  logging:
+    log_prompts: false  # Don't log actual patient data
+    log_outputs: false
+    log_metadata: true  # Model version, timing, etc.

@@ -1,0 +1,151 @@
+# Neurodegeneration Disease Seed
+# For generating synthetic patients with early-onset neurodegenerative disorders
+
+disease_category: "Early-Onset Neurodegeneration"
+
+example_conditions:
+  - "Huntington Disease"
+  - "Early-Onset Alzheimer Disease"
+  - "Frontotemporal Dementia"
+  - "Spinocerebellar Ataxia"
+  - "Hereditary Spastic Paraplegia"
+  - "NBIA (Neurodegeneration with Brain Iron Accumulation)"
+  - "Friedreich Ataxia"
+  - "Ataxia-Telangiectasia"
+  - "Juvenile Parkinsonism"
+  - "Niemann-Pick Type C"
+
+genes_of_interest:
+  - HTT         # Huntington Disease
+  - APP         # Early-onset AD
+  - PSEN1       # Early-onset AD
+  - PSEN2       # Early-onset AD
+  - MAPT        # FTD
+  - GRN         # FTD
+  - C9orf72     # FTD/ALS
+  - ATXN1       # SCA1
+  - ATXN2       # SCA2
+  - ATXN3       # SCA3/Machado-Joseph
+  - SPG4        # HSP (SPAST)
+  - FXN         # Friedreich Ataxia
+  - ATM         # Ataxia-Telangiectasia
+  - PARK2       # Juvenile Parkinson (Parkin)
+  - NPC1        # Niemann-Pick C
+  - PANK2       # NBIA/PKAN
+
+phenotype_features:
+  - "progressive cognitive decline"
+  - "movement disorder"
+  - "chorea"
+  - "ataxia"
+  - "spasticity"
+  - "parkinsonism"
+  - "dystonia"
+  - "dysarthria"
+  - "dysphagia"
+  - "psychiatric symptoms"
+  - "behavioral changes"
+  - "personality change"
+  - "seizures"
+  - "neuropathy"
+  - "eye movement abnormalities"
+  - "cerebellar signs"
+  - "pyramidal signs"
+  - "extrapyramidal signs"
+
+inheritance_patterns:
+  - "AD"   # Huntington, Early-onset AD, many SCAs
+  - "AR"   # Friedreich, NBIA, A-T
+
+typical_age_range: [15, 65]
+sex_bias: null
+
+complexity_distribution:
+  straightforward: 0.20
+  moderate: 0.35
+  challenging: 0.30
+  expert: 0.15
+
+canonical_variants:
+  - gene: HTT
+    variant: "CAG repeat expansion (>36)"
+    protein_change: "PolyQ expansion"
+    condition: "Huntington Disease"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: PSEN1
+    variant: "c.416T>C"
+    protein_change: "p.Leu139Pro"
+    condition: "Early-Onset Alzheimer Disease"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: FXN
+    variant: "GAA repeat expansion (>66)"
+    protein_change: "Reduced frataxin"
+    condition: "Friedreich Ataxia"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: ATXN3
+    variant: "CAG repeat expansion (>52)"
+    protein_change: "PolyQ expansion"
+    condition: "SCA3/Machado-Joseph Disease"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: NPC1
+    variant: "c.3182T>C"
+    protein_change: "p.Ile1061Thr"
+    condition: "Niemann-Pick Disease Type C"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+differential_diagnoses:
+  - "Multiple sclerosis"
+  - "Autoimmune encephalitis"
+  - "Paraneoplastic syndrome"
+  - "Prion disease"
+  - "Toxic/metabolic encephalopathy"
+  - "Wilson disease"
+  - "Vitamin deficiency"
+
+generation_prompt: |
+  Generate a realistic clinical summary for a patient with suspected
+  early-onset neurodegenerative disease. Consider:
+
+  - Age of onset (crucial for differential)
+  - Presenting symptoms (cognitive vs motor vs psychiatric)
+  - Progression pattern
+  - Neurological examination findings
+  - Neuroimaging features
+  - Family history and anticipation phenomenon
+  - Multi-system involvement
+
+  Clinical pearls:
+  - Huntington: chorea, psychiatric, CAG repeat anticipation
+  - Early-onset AD: memory + executive, presenilin mutations
+  - FTD: behavioral/language, C9orf72 also causes ALS
+  - SCA: ataxia pattern varies by type, repeat expansions
+  - Friedreich: ataxia + cardiomyopathy + diabetes, GAA repeat
+  - NBIA: dystonia + parkinsonism, "eye of tiger" on MRI
+  - NPC: vertical supranuclear gaze palsy, hepatosplenomegaly
+
+hpo_terms:
+  - HP:0001268  # Mental deterioration
+  - HP:0001332  # Dystonia
+  - HP:0002072  # Chorea
+  - HP:0001251  # Ataxia
+  - HP:0001257  # Spasticity
+  - HP:0001300  # Parkinsonism
+  - HP:0000726  # Dementia
+
+omim_references:
+  - "143100"  # Huntington Disease
+  - "607822"  # Alzheimer Disease, Early-Onset
+  - "600274"  # Frontotemporal Dementia
+  - "164400"  # SCA1
+  - "109150"  # Machado-Joseph Disease/SCA3
+  - "229300"  # Friedreich Ataxia
+  - "257220"  # Niemann-Pick C1

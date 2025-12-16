@@ -1,0 +1,102 @@
+# UH2025Agent Configuration
+# Updated: November 29, 2025 - Phase 5 (4-agent LangGraph architecture)
+
+# ============================================================
+# Pipeline Configuration
+# ============================================================
+pipeline:
+  # Use LLM-based agents (false = stub mode for testing)
+  use_live_llm: true
+  # Maximum iterations for Structuring↔Executor loop
+  max_loop_iterations: 3
+  # Enable HITL checkpoints
+  enable_hitl: true
+
+# ============================================================
+# Agent Configuration (4-agent architecture)
+# ============================================================
+agents:
+  ingestion:
+    model: llama-3.2-3b-instruct
+    temperature: 0.1
+    max_tokens: 4096
+
+  structuring:
+    model: qwen-2.5-14b-instruct
+    temperature: 0.3
+    max_tokens: 8192
+    max_diagnoses: 5
+    confidence_threshold: 0.15
+
+  executor:
+    max_concurrent: 3
+    default_timeout: 60
+
+  synthesis:
+    model: qwen-2.5-32b-instruct
+    temperature: 0.4
+    max_tokens: 16384
+    report_format: markdown
+    include_references: true
+
+# ============================================================
+# Bio-Tool Configuration
+# ============================================================
+# Implementation Status (December 2025):
+#   LIVE: alphamissense (DuckDB integration working)
+#   STUB: clinvar, omim, spliceai, revel, alphagenome, gnomad
+#
+# stub_mode: true = returns mock data for testing
+# stub_mode: false = uses real data source
+#
+# PRIVACY NOTE: Stub tools may still make network calls.
+# When privacy_mode=true, disable network-dependent tools manually.
+#
+# See .agentic/plans/active/STUB_IMPROVEMENT_ROADMAP.md for
+# implementation plans and contribution guide.
+# ============================================================
+biotools:
+  alphamissense:
+    stub_mode: false  # LIVE - DuckDB queries working
+    pathogenicity_threshold: 0.564
+    database_path: data/alphamissense.duckdb
+
+  clinvar:
+    stub_mode: true   # STUB - E-Utils API not implemented
+    # TODO: Implement NCBI E-Utils queries
+
+  omim:
+    stub_mode: true   # STUB - API key required
+    # api_key: ${OMIM_API_KEY}
+
+  spliceai:
+    stub_mode: true   # STUB - API not implemented
+    # delta_score_threshold: 0.2
+
+  revel:
+    stub_mode: true   # STUB - Lookup table not implemented
+    # score_threshold: 0.5
+
+  alphagenome:
+    stub_mode: true   # STUB - API key required
+    batch_size: 32
+    model_version: v1.0.0
+    # api_key: ${ALPHAGENOME_API_KEY}
+
+# ============================================================
+# Global Settings
+# ============================================================
+# Default to SyntheticDemo (included in repo for E2E testing)
+# For local testing with real data, use PatientX (not in repo)
+patient_id: SyntheticDemo
+privacy_mode: true
+enable_parallel: true
+output_directory: outputs
+timeout_minutes: 60
+
+# ============================================================
+# Logging
+# ============================================================
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

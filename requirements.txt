@@ -1,0 +1,102 @@
+# UH2025Agent Requirements
+# HIPAA/Privacy-First: Local LLM execution only
+# NO cloud API dependencies (OpenAI, Anthropic, etc.)
+# Generated: 2025-11-29
+#
+# Memory Budget: ~37GB peak (M4 MacBook Pro with 64GB RAM)
+# Sequential model loading to stay within envelope
+
+# ==============================================================================
+# Core LLM Dependencies (Local Execution)
+# ==============================================================================
+
+# LlamaCpp for local GGUF model inference
+# Metal acceleration enabled for Apple Silicon
+llama-cpp-python>=0.3.2
+
+# ==============================================================================
+# LangChain Framework (HIPAA-Safe Components Only)
+# ==============================================================================
+
+# Core LangChain - abstraction layer
+langchain>=0.3.7
+langchain-core>=0.3.19
+
+# LangChain Community - includes LlamaCpp integration
+# FORBIDDEN: langchain-openai, langchain-anthropic (cloud APIs)
+langchain-community>=0.3.7
+
+# LangGraph for stateful agent orchestration
+langgraph>=0.2.53
+langgraph-checkpoint>=2.0.6
+
+# ==============================================================================
+# Supporting Libraries
+# ==============================================================================
+
+# Prompt management and templating
+pydantic>=2.9.2
+jinja2>=3.1.4
+
+# Async support
+aiohttp>=3.10.10
+
+# YAML configuration
+pyyaml>=6.0.2
+
+# JSON Schema validation
+jsonschema>=4.23.0
+
+# ==============================================================================
+# Bio-Tools Dependencies
+# ==============================================================================
+
+# HTTP client for API calls
+httpx>=0.27.2
+requests>=2.32.3
+
+# Data processing
+pandas>=2.2.3
+numpy>=2.1.3
+
+# DuckDB for AlphaMissense local database
+duckdb>=1.1.3
+
+# Zarr for AlphaGenome cached data
+zarr>=3.0.0b1
+
+# VCF parsing
+cyvcf2>=0.31.1
+
+# ==============================================================================
+# Jupyter Integration
+# ==============================================================================
+
+# Notebook support
+ipykernel>=6.29.5
+ipywidgets>=8.1.5
+jupyterlab>=4.3.1
+
+# Jupytext for notebook sync
+jupytext>=1.16.4
+papermill>=2.5.0
+
+# ==============================================================================
+# Development & Testing
+# ==============================================================================
+
+pytest>=8.3.3
+pytest-asyncio>=0.24.0
+
+# Type checking
+mypy>=1.13.0
+
+# ==============================================================================
+# FORBIDDEN PACKAGES (Do NOT install - HIPAA violation)
+# ==============================================================================
+# langchain-openai        # Cloud API - NO
+# langchain-anthropic     # Cloud API - NO
+# openai                  # Cloud API - NO
+# anthropic               # Cloud API - NO
+# google-generativeai     # Cloud API - NO
+# cohere                  # Cloud API - NO

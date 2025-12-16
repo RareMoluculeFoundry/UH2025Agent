@@ -1,0 +1,121 @@
+# Ion Channelopathy Disease Seed
+# For generating synthetic patients with sodium/potassium channel disorders
+
+disease_category: "Ion Channelopathy"
+
+example_conditions:
+  - "Paramyotonia Congenita"
+  - "Hyperkalemic Periodic Paralysis"
+  - "Hypokalemic Periodic Paralysis"
+  - "Myotonia Congenita (Thomsen)"
+  - "Myotonia Congenita (Becker)"
+  - "Sodium Channel Myotonia"
+  - "Andersen-Tawil Syndrome"
+
+genes_of_interest:
+  - SCN4A      # Sodium channel
+  - CLCN1      # Chloride channel
+  - KCNJ2      # Potassium channel (Andersen-Tawil)
+  - CACNA1S    # Calcium channel (HypoPP)
+  - KCNJ18     # Potassium channel
+
+phenotype_features:
+  - "muscle stiffness"
+  - "episodic weakness"
+  - "cold sensitivity"
+  - "exercise intolerance"
+  - "myotonia"
+  - "paradoxical myotonia"
+  - "periodic paralysis"
+  - "potassium sensitivity"
+  - "eyelid myotonia"
+  - "grip myotonia"
+  - "percussion myotonia"
+  - "difficulty relaxing muscles"
+  - "warm-up phenomenon"
+  - "cardiac arrhythmias"
+
+inheritance_patterns:
+  - "AD"  # Most channelopathies are autosomal dominant
+
+typical_age_range: [5, 50]
+sex_bias: null  # No sex bias
+
+# Complexity level distribution (how often each level should be used)
+complexity_distribution:
+  straightforward: 0.3
+  moderate: 0.4
+  challenging: 0.2
+  expert: 0.1
+
+# Canonical pathogenic variants for realistic generation
+canonical_variants:
+  - gene: SCN4A
+    variant: "c.4343G>A"
+    protein_change: "p.Arg1448His"
+    condition: "Paramyotonia Congenita"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: SCN4A
+    variant: "c.4774C>T"
+    protein_change: "p.Arg1592Trp"
+    condition: "Paramyotonia Congenita"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: SCN4A
+    variant: "c.2078C>T"
+    protein_change: "p.Thr704Met"
+    condition: "Hyperkalemic Periodic Paralysis"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: CLCN1
+    variant: "c.501C>G"
+    protein_change: "p.Phe167Leu"
+    condition: "Myotonia Congenita"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+# Red herring conditions (for complex cases)
+differential_diagnoses:
+  - "Myasthenia Gravis"
+  - "Polymyositis"
+  - "Hypothyroidism"
+  - "Drug-induced myopathy"
+  - "Muscular dystrophy"
+
+# Generation prompt for LLM
+generation_prompt: |
+  Generate a realistic clinical summary for a patient with suspected
+  ion channelopathy. The presentation should include:
+
+  - Episodic symptoms (stiffness OR weakness)
+  - Triggering factors (cold, exercise, potassium-rich food, rest after exercise)
+  - Age of onset (typically childhood to young adult)
+  - Family history suggestive of autosomal dominant inheritance
+  - EMG findings if available (myotonic discharges)
+
+  Common clinical pearls:
+  - Paramyotonia: WORSENS with activity (opposite of myotonia congenita)
+  - Cold is a classic trigger for SCN4A-related disorders
+  - HyperKPP: weakness with elevated potassium
+  - HypoPP: weakness with low potassium
+  - Grip myotonia: difficulty releasing handshake
+  - Percussion myotonia: sustained muscle contraction after tapping
+
+# HPO terms for phenotype matching
+hpo_terms:
+  - HP:0003326  # Myotonia
+  - HP:0003768  # Periodic paralysis
+  - HP:0003236  # Elevated serum creatine kinase
+  - HP:0002486  # Myotonia of the jaw
+  - HP:0009073  # Progressive proximal muscle weakness
+
+# OMIM references
+omim_references:
+  - "168300"  # Paramyotonia Congenita
+  - "170500"  # Hyperkalemic Periodic Paralysis
+  - "170400"  # Hypokalemic Periodic Paralysis type 1
+  - "160800"  # Myotonia Congenita, Thomsen Disease

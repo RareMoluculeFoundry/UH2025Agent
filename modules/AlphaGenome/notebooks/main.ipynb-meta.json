@@ -1,0 +1,68 @@
+{
+  "name": "AlphaGenome Regulatory Analysis",
+  "description": "Analyze regulatory variants using AlphaFold/Ensembl data to assess functional impact on gene regulation, including eQTL analysis and regulatory element identification.",
+  "runtime_image": "continuumio/anaconda3:2024.02-1",
+  "properties": {
+    "patient_id": {
+      "title": "Patient ID",
+      "description": "Identifier for the patient",
+      "type": "string",
+      "default": "PatientX",
+      "required": true
+    },
+    "genomic_data_path": {
+      "title": "Genomic Data Path",
+      "description": "Path to genomic data JSON file with variants",
+      "type": "string",
+      "required": true
+    },
+    "output_file": {
+      "title": "Output File",
+      "description": "Path for output regulatory analysis JSON",
+      "type": "string",
+      "default": "regulatory_analysis.json",
+      "required": true
+    },
+    "privacy_mode": {
+      "title": "Privacy Mode",
+      "description": "Enable HIPAA-compliant privacy mode",
+      "type": "boolean",
+      "default": true
+    },
+    "ensembl_release": {
+      "title": "Ensembl Release Version",
+      "description": "Ensembl database release version",
+      "type": "string",
+      "default": "112"
+    },
+    "eqtl_significance_threshold": {
+      "title": "eQTL Significance Threshold",
+      "description": "P-value threshold for eQTL significance",
+      "type": "number",
+      "default": 0.05,
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  },
+  "outputs": [
+    "regulatory_analysis.json"
+  ],
+  "env_vars": [],
+  "dependencies": [],
+  "categories": [
+    "genomics",
+    "regulatory",
+    "eqtl",
+    "gene-expression"
+  ],
+  "module_metadata": {
+    "version": "1.0.0-stub",
+    "author": "DEFACT Lab",
+    "license": "MIT",
+    "repository": "lab/obs/modules/AlphaGenome",
+    "federated_tiers": ["L1", "L2", "L3"],
+    "backend_support": ["cpu", "cuda", "mps"],
+    "papermill_compatible": true,
+    "elyra_compatible": true
+  }
+}

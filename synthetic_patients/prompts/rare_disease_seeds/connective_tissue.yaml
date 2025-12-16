@@ -1,0 +1,131 @@
+# Connective Tissue Disorder Seed
+# For generating synthetic patients with heritable connective tissue disorders
+
+disease_category: "Connective Tissue Disorder"
+
+example_conditions:
+  - "Marfan Syndrome"
+  - "Ehlers-Danlos Syndrome, Classical Type"
+  - "Ehlers-Danlos Syndrome, Hypermobile Type"
+  - "Ehlers-Danlos Syndrome, Vascular Type"
+  - "Loeys-Dietz Syndrome"
+  - "Osteogenesis Imperfecta"
+  - "Stickler Syndrome"
+  - "Homocystinuria (with Marfanoid features)"
+
+genes_of_interest:
+  - FBN1        # Marfan Syndrome
+  - COL5A1      # EDS Classical
+  - COL5A2      # EDS Classical
+  - COL3A1      # EDS Vascular
+  - TGFBR1      # Loeys-Dietz
+  - TGFBR2      # Loeys-Dietz
+  - COL1A1      # OI
+  - COL1A2      # OI
+  - COL2A1      # Stickler
+  - COL11A1     # Stickler
+
+phenotype_features:
+  - "joint hypermobility"
+  - "skin hyperextensibility"
+  - "tissue fragility"
+  - "easy bruising"
+  - "aortic root dilation"
+  - "aortic dissection"
+  - "mitral valve prolapse"
+  - "tall stature"
+  - "arachnodactyly"
+  - "pectus deformity"
+  - "scoliosis"
+  - "ectopia lentis"
+  - "myopia"
+  - "retinal detachment"
+  - "spontaneous pneumothorax"
+  - "dural ectasia"
+  - "striae"
+  - "hernias"
+  - "bone fractures"
+  - "blue sclerae"
+
+inheritance_patterns:
+  - "AD"   # Most connective tissue disorders
+
+typical_age_range: [5, 50]
+sex_bias: null
+
+complexity_distribution:
+  straightforward: 0.25
+  moderate: 0.40
+  challenging: 0.25
+  expert: 0.10
+
+canonical_variants:
+  - gene: FBN1
+    variant: "c.4082G>A"
+    protein_change: "p.Cys1361Tyr"
+    condition: "Marfan Syndrome"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: COL3A1
+    variant: "c.1662G>A"
+    protein_change: "p.Gly554Arg"
+    condition: "EDS Vascular Type"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: TGFBR2
+    variant: "c.1583G>A"
+    protein_change: "p.Arg528His"
+    condition: "Loeys-Dietz Syndrome"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+  - gene: COL1A1
+    variant: "c.769G>A"
+    protein_change: "p.Gly257Arg"
+    condition: "Osteogenesis Imperfecta"
+    inheritance: "AD"
+    clinvar_significance: "Pathogenic"
+
+differential_diagnoses:
+  - "Benign joint hypermobility syndrome"
+  - "Fibromyalgia"
+  - "Lupus (vascular features)"
+  - "Bicuspid aortic valve"
+  - "Other aortopathies"
+
+generation_prompt: |
+  Generate a realistic clinical summary for a patient with suspected
+  connective tissue disorder. Consider:
+
+  - Skeletal features (tall stature, arm span, joint laxity)
+  - Cardiovascular findings (aortic measurements, valvular disease)
+  - Ocular features (lens position, myopia)
+  - Skin findings (elasticity, fragility, scarring)
+  - Family history and pattern of inheritance
+  - Multi-system involvement
+
+  Clinical pearls:
+  - Marfan: ectopia lentis UP and OUT, aortic root, FBN1
+  - vEDS: thin translucent skin, arterial/organ rupture, COL3A1
+  - Classical EDS: skin hyperextensibility, atrophic scars, COL5A1/2
+  - hEDS: most common, hypermobility, pain, no known gene
+  - Loeys-Dietz: bifid uvula, arterial tortuosity, TGFBR1/2
+  - OI: fractures, blue sclerae, dentinogenesis imperfecta
+
+hpo_terms:
+  - HP:0001382  # Joint hypermobility
+  - HP:0000974  # Hyperextensible skin
+  - HP:0002705  # High, narrow palate
+  - HP:0001166  # Arachnodactyly
+  - HP:0004942  # Aortic aneurysm
+  - HP:0001083  # Ectopia lentis
+  - HP:0002650  # Scoliosis
+
+omim_references:
+  - "154700"  # Marfan Syndrome
+  - "130000"  # EDS Classical Type
+  - "130050"  # EDS Vascular Type
+  - "609192"  # Loeys-Dietz Syndrome Type 1
+  - "166200"  # Osteogenesis Imperfecta Type I

@@ -1,0 +1,8 @@
+# Ignore all generated output files
+*.json
+*.md
+*_metadata.yaml
+
+# Keep directory structure
+!.gitkeep
+!README.md

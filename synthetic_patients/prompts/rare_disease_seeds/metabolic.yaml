@@ -1,0 +1,144 @@
+# Metabolic Disease Seed
+# For generating synthetic patients with inborn errors of metabolism
+
+disease_category: "Inborn Error of Metabolism"
+
+example_conditions:
+  - "Phenylketonuria (PKU)"
+  - "Maple Syrup Urine Disease"
+  - "Medium-chain acyl-CoA dehydrogenase deficiency (MCADD)"
+  - "Ornithine transcarbamylase deficiency"
+  - "Gaucher Disease"
+  - "Fabry Disease"
+  - "Niemann-Pick Disease"
+  - "Mucopolysaccharidosis Type I (Hurler)"
+  - "Homocystinuria"
+  - "Glycogen Storage Disease Type II (Pompe)"
+  - "Wilson Disease"
+
+genes_of_interest:
+  - PAH         # Phenylketonuria
+  - BCKDHA      # MSUD
+  - BCKDHB      # MSUD
+  - ACADM       # MCADD
+  - OTC         # OTC deficiency
+  - GBA         # Gaucher Disease
+  - GLA         # Fabry Disease
+  - SMPD1       # Niemann-Pick A/B
+  - IDUA        # MPS I
+  - CBS         # Homocystinuria
+  - ATP7B       # Wilson Disease
+
+phenotype_features:
+  - "developmental delay"
+  - "intellectual disability"
+  - "hepatomegaly"
+  - "splenomegaly"
+  - "hypoglycemia"
+  - "metabolic acidosis"
+  - "hyperammonemia"
+  - "seizures"
+  - "failure to thrive"
+  - "unusual body odor"
+  - "coarse facial features"
+  - "skeletal abnormalities"
+  - "cardiac disease"
+  - "renal involvement"
+  - "neuropathy"
+  - "psychiatric symptoms"
+  - "corneal changes"
+  - "cataracts"
+
+inheritance_patterns:
+  - "AR"   # Most IEMs
+  - "XLR"  # OTC deficiency, Fabry
+
+typical_age_range: [0, 40]
+sex_bias: null
+
+complexity_distribution:
+  straightforward: 0.20
+  moderate: 0.35
+  challenging: 0.30
+  expert: 0.15
+
+canonical_variants:
+  - gene: PAH
+    variant: "c.1222C>T"
+    protein_change: "p.Arg408Trp"
+    condition: "Phenylketonuria"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: ACADM
+    variant: "c.985A>G"
+    protein_change: "p.Lys329Glu"
+    condition: "MCADD"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: GBA
+    variant: "c.1226A>G"
+    protein_change: "p.Asn409Ser (N370S)"
+    condition: "Gaucher Disease Type 1"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: GLA
+    variant: "c.644A>G"
+    protein_change: "p.Asn215Ser"
+    condition: "Fabry Disease"
+    inheritance: "XLR"
+    clinvar_significance: "Pathogenic"
+
+  - gene: ATP7B
+    variant: "c.3207C>A"
+    protein_change: "p.His1069Gln"
+    condition: "Wilson Disease"
+    inheritance: "AR"
+    clinvar_significance: "Pathogenic"
+
+differential_diagnoses:
+  - "Acquired liver disease"
+  - "Mitochondrial disease"
+  - "Nutritional deficiency"
+  - "Toxic exposure"
+  - "Infectious encephalopathy"
+
+generation_prompt: |
+  Generate a realistic clinical summary for a patient with suspected
+  inborn error of metabolism. Consider:
+
+  - Presentation pattern (acute vs chronic vs intermittent)
+  - Precipitating factors (fasting, illness, protein intake)
+  - Newborn screening results if applicable
+  - Biochemical findings (amino acids, organic acids, acylcarnitines)
+  - Multi-system involvement
+  - Age at presentation
+
+  Clinical pearls:
+  - PKU: fair hair/skin, musty odor, elevated Phe
+  - MSUD: maple syrup odor, branched-chain amino acid elevation
+  - MCADD: hypoketotic hypoglycemia, medium-chain acylcarnitines
+  - OTC: hyperammonemia, respiratory alkalosis, orotic aciduria
+  - Gaucher: hepatosplenomegaly, bone crises, Ashkenazi Jewish
+  - Fabry: acroparesthesias, angiokeratomas, renal/cardiac disease
+  - Wilson: hepatic + neuropsychiatric, Kayser-Fleischer rings
+
+hpo_terms:
+  - HP:0001263  # Global developmental delay
+  - HP:0001744  # Splenomegaly
+  - HP:0002240  # Hepatomegaly
+  - HP:0001943  # Hypoglycemia
+  - HP:0001987  # Hyperammonemia
+  - HP:0001250  # Seizure
+  - HP:0001508  # Failure to thrive
+
+omim_references:
+  - "261600"  # Phenylketonuria
+  - "248600"  # MSUD
+  - "201450"  # MCADD
+  - "311250"  # OTC deficiency
+  - "230800"  # Gaucher Disease Type 1
+  - "301500"  # Fabry Disease
+  - "277900"  # Wilson Disease
