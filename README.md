@@ -1,7 +1,7 @@
 # UH2025-CDS-Agent: Edge-Native Diagnostic Agents for Rare Diseases
 
 <p align="center">
-  <img src="image_url.jpg" alt="Alt text">](https://undiagnosedhackathon.org/sites/undiagnosedhackathon/files/styles/large/public/2025-11/Undiagnosed-Hackathon-Logo-website.png?itok=zRiZJ30F
+  <img width="280" height="280" alt="image" src="https://github.com/user-attachments/assets/80ea12d7-8de0-40c1-aa6d-0d15e993694f" />
 </p>
 
 ---
