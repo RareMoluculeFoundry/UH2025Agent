@@ -1,7 +1,10 @@
 # UH2025-CDS-Agent: Edge-Native Diagnostic Agents for Rare Diseases
 
 <p align="center">
-  <img width="280" height="280" alt="image" src="https://github.com/user-attachments/assets/80ea12d7-8de0-40c1-aa6d-0d15e993694f" />
+
+![31AE41D6-EB00-4D0F-A150-1BDF81B6F5A4_4_5005_c](https://github.com/user-attachments/assets/d0d88601-41ce-462c-ada8-be82a93a5353)
+
+
 </p>
 
 ---
